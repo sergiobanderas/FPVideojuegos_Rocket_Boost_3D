@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Input Actions")]
     [SerializeField] private InputAction thrust;
     [SerializeField] private InputAction rotation;
+    [SerializeField] private InputAction shoot;
     
     [Header("Movement Settings")]
     [SerializeField] private float moveForce = 10f;
@@ -19,26 +20,39 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("Audio Settings")]
     [SerializeField] private AudioClip thrustAudioClip;
-
+  
     Rigidbody rb;
     AudioSource audioSource;
+    PlayerShooting playerShooting;
+
 
     void OnEnable()
     {
         thrust.Enable();
         rotation.Enable();
+        shoot.Enable();
     }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        playerShooting = GetComponent<PlayerShooting>();
     }
 
     void FixedUpdate()
     {
         ProcessThrust();
         ProcessRotation();
+        ProcessShooting();
+    }
+
+    /// <summary>
+    /// Processes the shooting input and triggers the shooting action if the shoot input is triggered.
+    /// </summary>
+    private void ProcessShooting()
+    {
+        if (shoot.IsPressed()) playerShooting.Shoot();        
     }
 
     /// <summary>
