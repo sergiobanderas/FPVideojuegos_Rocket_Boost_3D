@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 6b0bf81b9bf769c4cb75da722d4530a0
+timeCreated: 1568638469
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99731
+  packageName: Free Sci-Fi
+  packageVersion: 1.0
+  assetPath: Assets/FreeSciFi/Materials/Scene/Grey.mat
+  uploadId: 1037866

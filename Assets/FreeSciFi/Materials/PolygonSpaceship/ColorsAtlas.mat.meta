@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 00eaf01308024044aaffab04875e1397
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99731
+  packageName: Free Sci-Fi
+  packageVersion: 1.0
+  assetPath: Assets/FreeSciFi/Materials/PolygonSpaceship/ColorsAtlas.mat
+  uploadId: 1037866

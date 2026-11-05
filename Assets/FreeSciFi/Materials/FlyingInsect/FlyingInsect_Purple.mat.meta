@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: cb69702e662a4114aa3a332d2da74996
+timeCreated: 1554884032
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99731
+  packageName: Free Sci-Fi
+  packageVersion: 1.0
+  assetPath: Assets/FreeSciFi/Materials/FlyingInsect/FlyingInsect_Purple.mat
+  uploadId: 1037866

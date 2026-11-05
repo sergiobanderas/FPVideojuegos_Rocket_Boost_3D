@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 2d81e0bd71e79784199dbdf6880a51e6
+timeCreated: 1567504187
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99731
+  packageName: Free Sci-Fi
+  packageVersion: 1.0
+  assetPath: Assets/FreeSciFi/Materials/MinesBombs/Bomb.mat
+  uploadId: 1037866

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8c22678d7aa562145804b6f0af7e603a
+timeCreated: 1544428941
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99731
+  packageName: Free Sci-Fi
+  packageVersion: 1.0
+  assetPath: Assets/FreeSciFi/Prefabs/PlanetAsteroids/Tinniuq Planet.prefab
+  uploadId: 1037866

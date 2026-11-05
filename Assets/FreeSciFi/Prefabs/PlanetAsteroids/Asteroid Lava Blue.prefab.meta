@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: f603e71ddc270d54192200e95673e2a6
+timeCreated: 1568642981
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99731
+  packageName: Free Sci-Fi
+  packageVersion: 1.0
+  assetPath: Assets/FreeSciFi/Prefabs/PlanetAsteroids/Asteroid Lava Blue.prefab
+  uploadId: 1037866

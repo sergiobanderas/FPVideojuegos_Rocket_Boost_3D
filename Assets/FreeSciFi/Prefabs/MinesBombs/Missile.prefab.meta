@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8b227e0429c621940acb9e2e8d18d12f
+timeCreated: 1568642987
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99731
+  packageName: Free Sci-Fi
+  packageVersion: 1.0
+  assetPath: Assets/FreeSciFi/Prefabs/MinesBombs/Missile.prefab
+  uploadId: 1037866

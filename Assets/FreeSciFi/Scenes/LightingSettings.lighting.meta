@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cf55f26a31b9b854e9192464da5e21e1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4890085278179872738
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99731
+  packageName: Free Sci-Fi
+  packageVersion: 1.0
+  assetPath: Assets/FreeSciFi/Scenes/LightingSettings.lighting
+  uploadId: 1037866
