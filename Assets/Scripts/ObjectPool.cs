@@ -58,6 +58,13 @@ public class ObjectPool : MonoBehaviour
         theObject.SetActive(true);
         return theObject;
     }
+
+    public GameObject GetObjectFromPool(Vector3 spawnPosition)
+    {
+        GameObject theObject = GetObjectFromPool();
+        theObject.transform.position = spawnPosition;        
+        return theObject;
+    }
     
 
 }
