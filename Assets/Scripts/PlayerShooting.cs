@@ -8,12 +8,18 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private bool infiniteAmmo = false;
 
     [Header("Shooting Settings")]
-    [SerializeField] private float bulletSpeed = 20f;
-    [SerializeField] private float bulletRate = 0.25f;
+    [SerializeField] private float bulletSpeed = 35f;
+    [SerializeField] private float bulletRate = 0.15f;
     [SerializeField] private int bulletDamage = 1;
+
+    [Header("Shoot Audio")]
+    [SerializeField] private AudioClip laserClip1;
+    [SerializeField] private AudioClip laserClip2;
 
     private Transform bulletSpawnPoint;
     private ObjectPool bulletPool;
+    private Rigidbody playerBody;
+    private AudioSource shootAudio;
 
     private float lastShotTime = 0f;
 
@@ -21,6 +27,13 @@ public class PlayerShooting : MonoBehaviour
     {
         bulletSpawnPoint = transform.Find("ShootPoint");
         bulletPool = GetComponent<ObjectPool>();
+        playerBody = GetComponent<Rigidbody>();
+
+        // Separate source from the engine. Releasing boost calls Stop() on that AudioSource and would cut the laser.
+        shootAudio = gameObject.AddComponent<AudioSource>();
+        shootAudio.playOnAwake = false;
+        shootAudio.loop = false;
+        shootAudio.spatialBlend = 0f;
     }
 
     /// <summary>
@@ -48,16 +61,48 @@ public class PlayerShooting : MonoBehaviour
             //reduce the Ammo
             if (!infiniteAmmo)currentAmmo--;
 
-            //Get a bullet from the object pool
+            CombatVfx.PlayMuzzle(bulletSpawnPoint.position, bulletSpawnPoint.up);
+
             GameObject bullet = bulletPool.GetObjectFromPool();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = bulletSpawnPoint.rotation;
 
-            //Set the bullet's speed and movement forward
+            BulletController bulletController = bullet.GetComponent<BulletController>();
+            bulletController.SetDamage(bulletDamage);
+            // Start the trail once the shot is at the muzzle. Starting it in OnEnable connects the pool to the shot.
+            bulletController.BeginFlight();
+
             Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
-            bulletRigidbody.linearVelocity = bulletSpawnPoint.up * bulletSpeed;
-         
+            // Fired along the muzzle up axis and inherits the ship's velocity.
+            Vector3 inheritedVelocity = playerBody != null ? playerBody.linearVelocity : Vector3.zero;
+            bulletRigidbody.linearVelocity = bulletSpawnPoint.up * bulletSpeed + inheritedVelocity;
+            PlayShootSound();
         }
      
+    }
+
+    void PlayShootSound()
+    {
+        if (shootAudio == null)
+        {
+            return;
+        }
+
+        AudioClip clip = Random.Range(0, 2) == 0 ? laserClip1 : laserClip2;
+        if (clip == null)
+        {
+            clip = laserClip1 != null ? laserClip1 : laserClip2;
+        }
+
+        if (clip == null)
+        {
+            return;
+        }
+
+        // Each shot cuts the previous one so a burst is heard back to back.
+        // The clip is sfx_laser1 or sfx_laser2, chosen at random.
+        shootAudio.Stop();
+        shootAudio.clip = clip;
+        shootAudio.Play();
     }
 }

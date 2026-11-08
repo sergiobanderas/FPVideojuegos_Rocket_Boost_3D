@@ -27,20 +27,42 @@ public class FlyingEnemy : MonoBehaviour
     }
 
     private EnemyState currentState = EnemyState.Idle;
+    private bool snapFacing;
+    private float facingAngle;
 
-    private void Start()
+    private void OnEnable()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        if (playerTransform == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                playerTransform = player.transform;
+            }
+        }
 
+        // The pool reuses the object. Start does not run again, so the origin is stored here.
         startPosition = transform.position;
-
+        snapFacing = true;
         StartFloating();
-        
+    }
+
+    private void OnDisable()
+    {
+        // If the tween is still alive, reactivating the enemy continues the previous movement.
+        if (floatingTween != null && floatingTween.IsActive())
+        {
+            floatingTween.Kill();
+        }
     }
 
     void Update()
     {
-        
+        if (playerTransform == null)
+        {
+            return;
+        }
+
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
         if (distanceToPlayer <= detectionRange)
@@ -50,7 +72,38 @@ public class FlyingEnemy : MonoBehaviour
         else if (currentState == EnemyState.Chasing && distanceToPlayer > loseRange)
         {
             ReturnToStartPosition();
-        }        
+        }
+
+        // Also while chasing: DOMove does not rotate the transform.
+        FacePlayer();
+    }
+
+    // The model's head (local +Z) looks at the player on the XY plane.
+    // Up stays toward world up so they do not flip upside down when they turn around.
+    private void FacePlayer()
+    {
+        Vector3 toPlayer = playerTransform.position - transform.position;
+        toPlayer.z = 0f;
+        if (toPlayer.sqrMagnitude < 0.0001f)
+        {
+            return;
+        }
+
+        float targetAngle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg;
+
+        if (snapFacing)
+        {
+            facingAngle = targetAngle;
+            snapFacing = false;
+        }
+        else
+        {
+            facingAngle = Mathf.LerpAngle(facingAngle, targetAngle, 12f * Time.deltaTime);
+        }
+
+        Vector3 head = new Vector3(Mathf.Cos(facingAngle * Mathf.Deg2Rad), Mathf.Sin(facingAngle * Mathf.Deg2Rad), 0f);
+        Vector3 upHint = Mathf.Abs(head.y) > 0.95f ? Vector3.right : Vector3.up;
+        transform.rotation = Quaternion.LookRotation(head, upHint);
     }
 
     private void OnDrawGizmosSelected()
@@ -67,7 +120,10 @@ public class FlyingEnemy : MonoBehaviour
     private void ReturnToStartPosition()
     {
         
-        floatingTween.Kill();
+        if (floatingTween != null && floatingTween.IsActive())
+        {
+            floatingTween.Kill();
+        }
 
         // Move back to the starting position
         float distanceToStart = Vector3.Distance(transform.position, startPosition);
@@ -85,7 +141,10 @@ public class FlyingEnemy : MonoBehaviour
     private void StartChasing(float distanceToPlayer)
     {
         currentState = EnemyState.Chasing;
-        floatingTween.Kill();
+        if (floatingTween != null && floatingTween.IsActive())
+        {
+            floatingTween.Kill();
+        }
 
         // Move towards the player
         float duration = Mathf.Max(0.1f, distanceToPlayer / moveSpeed);

@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnEnable()
     {
-        //Initialize the enemy's health when it is enabled
+        // Restore health when leaving the pool. Start does not run again.
         currentHealth = enemyData.health;
     }
 
@@ -25,7 +25,8 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        //Handle enemy death (e.g., play death animation, drop loot, etc.)
+        // The explosion stays in the world and the enemy goes back to the pool.
+        CombatVfx.PlayExplosion(transform.position);
         gameObject.SetActive(false);
     }
 }

@@ -2461,8 +2461,20 @@ MonoBehaviour:
       m_Flags: 8
     m_Flags: 0
     m_Priority: 0
-  moveForce: 10
-  rotationForce: 2.5
+  shoot:
+    m_Name: Shoot
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9d030f01-4965-461a-9443-153d4e7ea08b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+    m_Priority: 0
+  moveForce: 11
+  rotationForce: 220
+  linearDamping: 2.1
+  maxSpeed: 6.5
   thrustParticleSystem: {fileID: 9203457754412893131}
   leftThrustParticleSystem: {fileID: 5321065989836365631}
   rightThrustParticleSystem: {fileID: 8438000188783250070}

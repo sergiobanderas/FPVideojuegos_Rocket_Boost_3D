@@ -10,8 +10,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputAction shoot;
     
     [Header("Movement Settings")]
-    [SerializeField] private float moveForce = 10f;
-    [SerializeField] private float rotationForce = 2.5f;
+    // Low thrust, high damping, and a speed cap so a boost does not throw the ship across the level.
+    [SerializeField] private float moveForce = 11f;
+    [SerializeField] private float rotationForce = 220f;
+    [SerializeField] private float linearDamping = 2.1f;
+    [SerializeField] private float maxSpeed = 6.5f;
 
     [Header("Particle Systems")]
     [SerializeField] private ParticleSystem thrustParticleSystem;
@@ -36,15 +39,26 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.linearDamping = linearDamping;
         audioSource = GetComponent<AudioSource>();
         playerShooting = GetComponent<PlayerShooting>();
+    }
+
+    void Update()
+    {
+        ProcessShooting();
     }
 
     void FixedUpdate()
     {
         ProcessThrust();
         ProcessRotation();
-        ProcessShooting();
+
+        // Cuts the speed built up while thrust is held.
+        if (rb.linearVelocity.magnitude > maxSpeed)
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+        }
     }
 
     /// <summary>
@@ -92,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void RotateLeft()
     {
-        transform.Rotate(Vector3.back * rotationForce);
+        transform.Rotate(Vector3.back * (rotationForce * Time.fixedDeltaTime));
         if (!leftThrustParticleSystem.isPlaying)
         {
             rightThrustParticleSystem.Stop();
@@ -105,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void RotateRight()
     {
-        transform.Rotate(Vector3.forward * rotationForce);
+        transform.Rotate(Vector3.forward * (rotationForce * Time.fixedDeltaTime));
         if (!rightThrustParticleSystem.isPlaying)
         {
             leftThrustParticleSystem.Stop();

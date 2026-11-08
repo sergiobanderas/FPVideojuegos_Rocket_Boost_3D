@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Colour_Palette_Sci_Fi
-    second: {fileID: -6141262742250102974, guid: aa840126f37030e459305ecd09c6f48f, type: 3}
+    second: {fileID: 2100000, guid: 1ad4e47271285f4498c0af5fdac4e638, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

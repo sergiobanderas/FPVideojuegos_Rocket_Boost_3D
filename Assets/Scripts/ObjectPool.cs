@@ -61,8 +61,16 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetObjectFromPool(Vector3 spawnPosition)
     {
-        GameObject theObject = GetObjectFromPool();
-        theObject.transform.position = spawnPosition;        
+        GameObject theObject = objectPoolList.Find(obj => !obj.activeInHierarchy);
+
+        if (theObject == null)
+        {
+            theObject = CreateNewObject();
+        }
+
+        // Set the position before activating. Enemy OnEnable stores this point as the origin.
+        theObject.transform.position = spawnPosition;
+        theObject.SetActive(true);
         return theObject;
     }
     
