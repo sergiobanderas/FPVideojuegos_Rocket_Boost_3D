@@ -37,6 +37,7 @@ Ammo is 10 shots. Infinite ammo can be enabled on the `PlayerShooting` component
 - There are three enemy groups (Silly, Tiger, and Cocodrile). Each has its own pool, color, and spawn area. They appear when the ship passes a position on X.
 - They spawn on an ellipse in the gameplay plane, kept apart from each other and always above the ground. Scale is 0.15.
 - Enemies float, chase you when you get close, and keep their head pointed at the ship, including while they follow you.
+- Touching an enemy costs one life. The ship blinks for one second and cannot be hit again during that time. The run starts with 5 lives. At zero, the scene reloads.
 
 ## Scripts
 
@@ -50,3 +51,4 @@ Ammo is 10 shots. Infinite ammo can be enabled on the `PlayerShooting` component
 | `EnemySpawner` | Spawn areas, separation, tint, and scale |
 | `FlyingEnemy` | Floating, chasing, and looking at the player |
 | `EnemyHealth` | Health, explosion, and deactivation on death |
+| `PlayerHealth` | Lives, one second of blinking invulnerability, and scene reload |

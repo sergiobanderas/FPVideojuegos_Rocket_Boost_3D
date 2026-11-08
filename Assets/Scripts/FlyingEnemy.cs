@@ -30,6 +30,19 @@ public class FlyingEnemy : MonoBehaviour
     private bool snapFacing;
     private float facingAngle;
 
+    private void Awake()
+    {
+        // Moved by DOTween, so a kinematic body is required for the ship to receive the hit.
+        Rigidbody body = GetComponent<Rigidbody>();
+        if (body == null)
+        {
+            body = gameObject.AddComponent<Rigidbody>();
+        }
+
+        body.isKinematic = true;
+        body.useGravity = false;
+    }
+
     private void OnEnable()
     {
         if (playerTransform == null)

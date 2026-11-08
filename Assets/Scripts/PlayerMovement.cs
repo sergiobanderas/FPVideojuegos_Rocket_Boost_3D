@@ -29,6 +29,14 @@ public class PlayerMovement : MonoBehaviour
     PlayerShooting playerShooting;
 
 
+    void Awake()
+    {
+        if (GetComponent<PlayerHealth>() == null)
+        {
+            gameObject.AddComponent<PlayerHealth>();
+        }
+    }
+
     void OnEnable()
     {
         thrust.Enable();
