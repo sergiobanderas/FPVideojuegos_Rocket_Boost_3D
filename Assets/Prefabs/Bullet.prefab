@@ -153,3 +153,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ef7fe810f570b142937736c15f5ef8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletController
+  bulletLifeTime: 1
